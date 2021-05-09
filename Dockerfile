@@ -8,7 +8,7 @@ RUN pip install -r /app/requirements.txt
 # copy credentials  #TODO: change this!!!
 COPY /credentials /credentials
 
-EXPOSE 80
+EXPOSE 8080
 
 WORKDIR /app
 

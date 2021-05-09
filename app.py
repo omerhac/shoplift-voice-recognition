@@ -12,7 +12,7 @@ app = Flask(__name__)
 socket_ = socketio.Server()
 
 # set speech to text google API credentials
-retrieve_credentials.get_secret()  # dump api key to json
+#retrieve_credentials.get_secret()  # dump api key to json  #TODO:change this!!!
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = 'credentials/stt-api-creds.json'
 
 
@@ -53,6 +53,5 @@ def transcribe_stream(sid, stream):
 
 if __name__ == '__main__':
     app = socketio.Middleware(socket_, app)
-    eventlet.wsgi.server(eventlet.wrap_ssl(eventlet.listen(('', 8000)),
-                                           certfile='myCA.pem',
-                                           keyfile='myCA.key'), app)
+    eventlet.wsgi.server(eventlet.listen(('', 8080)), app)
+
