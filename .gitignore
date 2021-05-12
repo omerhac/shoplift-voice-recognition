@@ -1,3 +1,5 @@
 /.venv
 /resources
 /credentials/stt-api-creds.json
+/credentials/myCA.key
+/credentials/myCA.pem

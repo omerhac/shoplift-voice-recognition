@@ -164,7 +164,7 @@ def listen_print_loop(responses):
             num_chars_printed = 0
 
 
-def main():
+def transcribe_stream(stream):
     # See http://g.co/cloud/speech/docs/languages
     # for a list of supported languages.
     language_code = "iw-IL"  # a BCP-47 language tag
@@ -180,19 +180,13 @@ def main():
         config=config, interim_results=True
     )
 
-    with MicrophoneStream(RATE, CHUNK) as stream:
-        audio_generator = stream.generator()
-        requests = (
-            speech.StreamingRecognizeRequest(audio_content=content)
-            for content in audio_generator
-        )
+    requests = (
+        speech.StreamingRecognizeRequest(audio_content=content)
+        for content in stream
+    )
 
-        responses = client.streaming_recognize(streaming_config, requests)
+    responses = client.streaming_recognize(streaming_config, requests)
 
-        # Now, put the transcription responses to use.
-        listen_print_loop(responses)
+    # Now, put the transcription responses to use.
+    listen_print_loop(responses)
 
-
-if __name__ == "__main__":
-    main()
-# [END speech_transcribe_streaming_mic]
